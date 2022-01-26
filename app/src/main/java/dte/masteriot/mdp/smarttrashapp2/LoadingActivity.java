@@ -172,6 +172,9 @@ public class LoadingActivity extends AppCompatActivity{
                 containerName = eachContainer.getString("title");
                 int punto = containerName.indexOf(".");
                 containerName = containerName.substring(punto + 2);
+                punto = containerName.indexOf("e");
+                containerName = containerName.substring(punto + 2);
+                containerName = "Container in " + containerName;
                 containerNames_ArrayList.add(containerName);
 
                 try {

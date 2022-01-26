@@ -32,7 +32,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String name;
     String lat;
     String lon;
+    String container;
     boolean seeFullMap;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Add a marker in Sydney and move the camera
             //LatLng sydney = new LatLng(-34, 151);
             LatLng container = new LatLng(Double.valueOf(lat), Double.valueOf(lon));
-            mMap.addMarker(new MarkerOptions().position(container).title("Container in " + name).snippet("-->Click here to see the details<--"));
+            mMap.addMarker(new MarkerOptions().position(container).title(name).snippet("-->Click here to see the details<--"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(container));
             mMap.setMinZoomPreference(13);
         }
@@ -97,8 +100,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Creating Intent For Navigating to VisitActivity (Explicit Intent)
         Intent i = new Intent(MapsActivity.this, ContainerActivity.class);
 
+        container = marker.getTitle();
+
         // Adding values to the intent to pass them to VisitActivity
-        i.putExtra("containerName", name);
+        i.putExtra("containerName", container);
 
         // Once the intent is parametrized, start the VisitActivity:
         startActivity(i);
@@ -106,7 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void parseJSON() {
 
-        String containerNames = "";
+        String containerName = "";
 
         try {
             // get JSONObject from JSON file
@@ -121,9 +126,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject eachContainer = graph.getJSONObject(i);
                 LatLng location = null;
                 // get container's name
-                containerNames = eachContainer.getString("title");
-                int punto = containerNames.indexOf(".");
-                containerNames = containerNames.substring(punto + 2);
+                containerName = eachContainer.getString("title");
+                int punto = containerName.indexOf(".");
+                containerName = containerName.substring(punto + 2);
+                punto = containerName.indexOf("e");
+                containerName = containerName.substring(punto + 2);
+                containerName = "Container in " + containerName;
 
                 try {
                     // get container's location
@@ -132,13 +140,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             locationNode.getDouble("latitude"),
                             locationNode.getDouble("longitude"));
 
-                    mMap.addMarker(new MarkerOptions().position(location).title("Container in " + containerNames).snippet("-->Click here to see the details<--"));
+                    mMap.addMarker(new MarkerOptions().position(location).title(containerName).snippet("-->Click here to see the details<--"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
                 }catch (JSONException ignored){
 
                 }
             }
+
+            mMap.setMinZoomPreference(11);
 
         } catch (JSONException e) {
             e.printStackTrace();

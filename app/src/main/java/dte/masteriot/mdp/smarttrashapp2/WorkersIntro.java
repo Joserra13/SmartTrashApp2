@@ -1,7 +1,10 @@
 package dte.masteriot.mdp.smarttrashapp2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,9 +25,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.ItemClickListener{
 
     ArrayList<String> containerNames_ArrayList = new ArrayList<String>();
+    ArrayList<LatLng> location_ArrayList = new ArrayList<LatLng>();
 
     private static final List<Item> listOfItems = new ArrayList<>();
 
@@ -53,8 +62,10 @@ public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.It
     public void parseJSON() {
 
         listOfItems.clear();
+        containerNames_ArrayList.clear();
+        location_ArrayList.clear();
 
-        String containerNames = "";
+        String containerName = "";
 
         try {
             // get JSONObject from JSON file
@@ -69,10 +80,13 @@ public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.It
                 JSONObject eachContainer = graph.getJSONObject(i);
                 LatLng location = null;
                 // get container's name
-                containerNames = eachContainer.getString("title");
-                int punto = containerNames.indexOf(".");
-                containerNames = containerNames.substring(punto + 2);
-                containerNames_ArrayList.add(containerNames);
+                containerName = eachContainer.getString("title");
+                int punto = containerName.indexOf(".");
+                containerName = containerName.substring(punto + 2);
+                punto = containerName.indexOf("e");
+                containerName = containerName.substring(punto + 2);
+                containerName = "Container in " + containerName;
+                containerNames_ArrayList.add(containerName);
 
                 try {
                     // get container's location
@@ -80,11 +94,12 @@ public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.It
                     location = new LatLng(
                             locationNode.getDouble("latitude"),
                             locationNode.getDouble("longitude"));
+                    location_ArrayList.add(location);
                 }catch (JSONException ignored){
 
                 }
 
-                listOfItems.add(new Item(containerNames, location, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                listOfItems.add(new Item(containerName, location, 0, 0, 0, 0, 0, 0, 0, 0, 0));
             }
 
         } catch (JSONException e) {
@@ -93,8 +108,6 @@ public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.It
 
         myAdapter.notifyDataSetChanged();
     }
-
-
 
     public String loadJSONFromAsset() {
         String json = null;

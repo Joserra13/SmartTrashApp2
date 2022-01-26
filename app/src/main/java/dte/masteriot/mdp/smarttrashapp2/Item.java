@@ -5,15 +5,15 @@ import com.google.android.gms.maps.model.LatLng;
 public class Item {
     private final String myDisplayText;
     private final LatLng myLocation;
-    private final int orgLevel;
-    private final int plaLevel;
-    private final int papLevel;
-    private final int glaLevel;
-    private final float temperature;
-    private final float humidity;
-    private final float acc_XAXIS;
-    private final float acc_YAXIS;
-    private final float acc_ZAXIS;
+    private int orgLevel = 0;
+    private int plaLevel = 0;
+    private int papLevel = 0;
+    private int glaLevel = 0;
+    private float temperature = 0;
+    private float humidity = 0;
+    private float acc_XAXIS = 0;
+    private float acc_YAXIS = 0;
+    private float acc_ZAXIS = 0;
 
     Item(String display_text, LatLng location, int organic, int plastic, int glass, int paper, float temp, float hum, float x_Axis, float y_Axis, float z_Axis) {
         myDisplayText = display_text;
@@ -37,16 +37,17 @@ public class Item {
         return myLocation;
     }
 
-    int getOrgLevel(){return orgLevel;}
-    int getPlaLevel(){return plaLevel;}
-    int getPapLevel(){return papLevel;}
-    int getGlaLevel(){return glaLevel;}
-
-    float getTemp(){return temperature;}
-    float getHum(){return humidity;}
+    public int getOrgLevel(){return orgLevel;}
+    public int getPlaLevel(){return plaLevel;}
+    public int getPapLevel(){return papLevel;}
+    public int getGlaLevel(){return glaLevel;}
 
 
-    float getX(){return acc_XAXIS;}
-    float getY(){return acc_YAXIS;}
-    float getZ(){return acc_ZAXIS;}
+    public float getTemp(){return temperature;}
+    public float getHum(){return humidity;}
+
+
+    public float getX(){return acc_XAXIS;}
+    public float getY(){return acc_YAXIS;}
+    public float getZ(){return acc_ZAXIS;}
 }
