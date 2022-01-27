@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ThingsboardService {
 
@@ -75,4 +76,13 @@ public interface ThingsboardService {
     @GET ("alarm/DEVICE/ddca70e0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getGlassStreetContainersAlarm (@Header("X-Authorization") String token);
 
+    //ACKNOWLEDGE THE ALARM
+    @Headers({"Accept: application/json"})
+    @GET ("alarm/{alarmId}/ack")
+    Call<JsonObject> sendACKAlarm (@Header("X-Authorization") String token, @Path ("alarmId") String alarmId);
+
+    //ACKNOWLEDGE THE ALARM
+    @Headers({"Accept: application/json"})
+    @GET ("alarm/{alarmId}/clear")
+    Call<JsonObject> sendClearAlarm (@Header("X-Authorization") String token, @Path ("alarmId") String alarmId);
 }
