@@ -42,7 +42,7 @@ public interface ThingsboardService {
 
     //STREET Plastic Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/6e2b9ca0-7971-11ec-9a04-591db17ccd5b?pageSize=5&page=1&sortOrder=descendant")
+    @GET ("alarm/DEVICE/6e2b9ca0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getPlasticStreetContainersAlarm (@Header("X-Authorization") String token);
 
     //STREET Paper Container
@@ -52,7 +52,7 @@ public interface ThingsboardService {
 
     //STREET Paper Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/1810a5d0-790e-11ec-9a04-591db17ccd5b?pageSize=5&page=1&sortOrder=descendant")
+    @GET ("alarm/DEVICE/1810a5d0-790e-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getPaperStreetContainersAlarm (@Header("X-Authorization") String token);
 
     //STREET Organic Container
@@ -62,7 +62,7 @@ public interface ThingsboardService {
 
     //STREET Organic Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?pageSize=5&page=1&sortOrder=descendant")
+    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getOrganicStreetContainersAlarm (@Header("X-Authorization") String token);
 
     //STREET Glass Container
@@ -72,7 +72,7 @@ public interface ThingsboardService {
 
     //STREET Glass Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?pageSize=5&page=1&sortOrder=descendant")
+    @GET ("alarm/DEVICE/ddca70e0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getGlassStreetContainersAlarm (@Header("X-Authorization") String token);
 
 }

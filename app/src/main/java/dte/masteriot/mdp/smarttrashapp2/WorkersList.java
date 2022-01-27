@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonObject;
 
@@ -17,12 +19,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class WorkersList extends AppCompatActivity{
+public class WorkersList extends AppCompatActivity implements ItemViewHolder.ItemClickListener{
 
     Button bParse;
 
@@ -30,7 +38,21 @@ public class WorkersList extends AppCompatActivity{
 
     Call<JsonObject> containerAlarm;
 
-    String test = "";
+    String containerInfo = "";
+
+    long createdTime;
+    String type = "";
+    String status = "";
+    String severity = "";
+    String dateString = "";
+    String name = "";
+    String alarmId = "";
+
+    private static final List<Item> listOfItems = new ArrayList<>();
+    ArrayList<String> alarmId_ArrayList = new ArrayList<String>();
+
+    private RecyclerView myRecycleView;
+    private ItemAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +60,15 @@ public class WorkersList extends AppCompatActivity{
         setContentView(R.layout.activity_workers_list);
 
         bParse = findViewById(R.id.button3);
-        testTV = findViewById(R.id.textView22);
+        //testTV = findViewById(R.id.textView22);
+
+        myRecycleView = findViewById(R.id.recyclerView2);
+        myAdapter = new ItemAdapter(listOfItems, this);
+        myRecycleView.setAdapter(myAdapter);
+        myRecycleView.setLayoutManager(new LinearLayoutManager(this));
+
+        listOfItems.clear();
+        alarmId_ArrayList.clear();
 
         //Plastic
         getAlarms(0);
@@ -88,7 +118,45 @@ public class WorkersList extends AppCompatActivity{
                     JSONObject obj = null;
                     try {
                         obj = new JSONObject(response.body().toString());
-                        test = test + obj.toString();
+                        //test = test + obj.toString();
+
+                        JSONArray dataArray = null;
+                        JSONObject alarmInfo;
+                        dataArray = obj.getJSONArray("data");
+
+                        for(int i=0; i < dataArray.length(); i++){
+                            alarmInfo = dataArray.getJSONObject(i);
+
+                            createdTime = alarmInfo.getLong("createdTime");
+                            toDateTime(createdTime);
+
+                            status = alarmInfo.getString("status");
+                            severity = alarmInfo.getString("severity");
+                            type = alarmInfo.getString("type");
+
+                            alarmId = alarmInfo.getJSONObject("id").getString("id");
+                            alarmId_ArrayList.add(alarmId);
+
+                            if(choice == 0){
+
+                                name = "Plastic Street Container";
+                            }else if(choice == 1){
+
+                                name = "Paper Street Container";
+                            }else if(choice == 2){
+
+                                name = "Organic Street Container";
+                            }else if(choice == 3){
+
+                                name = "Glass Street Container";
+                            }
+
+                            containerInfo = dateString + "\nContainer: " + name + "\nType: " + type + "\nSeverity: " + severity + " Status: " + status;
+
+                            listOfItems.add(new Item(containerInfo, null, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
+                            myAdapter.notifyDataSetChanged();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -96,7 +164,7 @@ public class WorkersList extends AppCompatActivity{
                     Log.d("ERROR with code: ", String.valueOf(response.code()));
                 }
 
-                testTV.setText(test);
+                //testTV.setText(containerInfo);
             }
 
             @Override
@@ -106,5 +174,22 @@ public class WorkersList extends AppCompatActivity{
         });
     }
 
+    public void toDateTime(long secs) {
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd / MM / yyyy, HH:mm:ss");
+        dateString = formatter.format(secs);
+    }
+
+    @Override
+    public void onItemClick(int position, View v) {
+
+        Item container = listOfItems.get(position);
+
+        Intent i = new Intent(WorkersList.this, AlarmActivity.class);
+
+        i.putExtra("alarmInfo", String.valueOf(container.getDisplayText()));
+        i.putExtra("alarmId", String.valueOf(alarmId_ArrayList.get(position)));
+
+        startActivity(i);
+    }
 }
