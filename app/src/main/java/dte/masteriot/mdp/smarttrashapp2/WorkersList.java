@@ -99,15 +99,19 @@ public class WorkersList extends AppCompatActivity implements ItemViewHolder.Ite
         if(choice == 0){
             //Plastic
             containerAlarm = tbs.getPlasticStreetContainersAlarm(token);
+            containerAlarm = tbs.getPlasticStreetContainersAlarm2(token);
         }else if(choice == 1){
             //Paper
             containerAlarm = tbs.getPaperStreetContainersAlarm(token);
+            containerAlarm = tbs.getPaperStreetContainersAlarm2(token);
         }else if(choice == 2){
             //Organic
             containerAlarm = tbs.getOrganicStreetContainersAlarm(token);
+            containerAlarm = tbs.getPaperStreetContainersAlarm2(token);
         }else if(choice == 3){
             //Glass
             containerAlarm = tbs.getGlassStreetContainersAlarm(token);
+            containerAlarm = tbs.getPaperStreetContainersAlarm2(token);
         }
 
         //This enqueues of the Callback means we are making an asynchronous request (which won't block the UI-Thread)
