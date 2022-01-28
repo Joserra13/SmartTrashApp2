@@ -195,7 +195,7 @@ public class LoadingActivity extends AppCompatActivity{
 
                 }
 
-                listOfItems.add(new Item(containerName, location, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                listOfItems.add(new Item(containerName, location, null));
             }
 
         } catch (JSONException e) {

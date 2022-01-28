@@ -23,6 +23,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -99,7 +101,7 @@ public class WorkersIntro extends AppCompatActivity implements ItemViewHolder.It
 
                 }
 
-                listOfItems.add(new Item(containerName, location, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                listOfItems.add(new Item(containerName, location, null));
             }
 
         } catch (JSONException e) {

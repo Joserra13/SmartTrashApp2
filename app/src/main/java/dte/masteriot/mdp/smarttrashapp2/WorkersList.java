@@ -23,6 +23,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,7 +80,6 @@ public class WorkersList extends AppCompatActivity implements ItemViewHolder.Ite
         getAlarms(2);
         //Glass
         getAlarms(3);
-
     }
 
     public void goTo(View view){
@@ -153,7 +154,7 @@ public class WorkersList extends AppCompatActivity implements ItemViewHolder.Ite
 
                             containerInfo = dateString + "\nContainer: " + name + "\nType: " + type + "\nSeverity: " + severity + " Status: " + status;
 
-                            listOfItems.add(new Item(containerInfo, null, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                            listOfItems.add(new Item(containerInfo, null, dateString));
 
                             myAdapter.notifyDataSetChanged();
                         }
@@ -176,7 +177,7 @@ public class WorkersList extends AppCompatActivity implements ItemViewHolder.Ite
 
     public void toDateTime(long secs) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd / MM / yyyy, HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
         dateString = formatter.format(secs);
     }
 

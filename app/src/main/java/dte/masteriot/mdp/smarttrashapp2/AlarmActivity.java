@@ -25,7 +25,7 @@ public class AlarmActivity extends AppCompatActivity {
     String alarmInfo = "";
     String alarmId = "";
 
-    Call<JsonObject> alarmCommand;
+    Call<Void> alarmCommand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +61,9 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         //This enqueues of the Callback means we are making an asynchronous request (which won't block the UI-Thread)
-        alarmCommand.enqueue(new Callback<JsonObject>() {
+        alarmCommand.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code() == 200){
 
                     if(choice == 0){
@@ -84,7 +84,7 @@ public class AlarmActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("RESPONSE::ERROR", "It did not work");
             }
         });
