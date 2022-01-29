@@ -58,6 +58,9 @@ public class AlarmActivity extends AppCompatActivity {
         }else if(choice == 1){
             //Clear
             alarmCommand = tbs.sendClearAlarm(token, alarmId);
+        }else if(choice == 2){
+            //Clear
+            alarmCommand = tbs.sendDeleteAlarm(token, alarmId);
         }
 
         //This enqueues of the Callback means we are making an asynchronous request (which won't block the UI-Thread)
@@ -70,6 +73,8 @@ public class AlarmActivity extends AppCompatActivity {
                         commandSent.setText("Alarm acknowledged");
                     }else if(choice == 1){
                         commandSent.setText("Alarm cleared");
+                    }else if(choice == 2){
+                        commandSent.setText("Alarm deleted");
                     }
 
                 } else{
@@ -79,6 +84,8 @@ public class AlarmActivity extends AppCompatActivity {
                         commandSent.setText("Alarm was not acknowledge correclty");
                     }else if(choice == 1){
                         commandSent.setText("Alarm was not cleared correclty");
+                    }else if(choice == 2){
+                        commandSent.setText("Alarm was not deleted correclty");
                     }
                 }
             }
@@ -96,6 +103,12 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     public void sendClear(View view) {
+
         sendCommand(1);
+    }
+
+    public void sendDelete(View view) {
+
+        sendCommand(2);
     }
 }

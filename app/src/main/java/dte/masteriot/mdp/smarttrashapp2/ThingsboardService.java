@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -43,13 +44,8 @@ public interface ThingsboardService {
 
     //STREET Plastic Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/6e2b9ca0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_UNACK")
+    @GET ("alarm/DEVICE/6e2b9ca0-7971-11ec-9a04-591db17ccd5b?&pageSize=30&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getPlasticStreetContainersAlarm (@Header("X-Authorization") String token);
-
-    //STREET Plastic Container ALARM
-    @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/6e2b9ca0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_ACK")
-    Call<JsonObject> getPlasticStreetContainersAlarm2 (@Header("X-Authorization") String token);
 
     //STREET Paper Container
     @Headers({"Accept: application/json"})
@@ -58,13 +54,8 @@ public interface ThingsboardService {
 
     //STREET Paper Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/1810a5d0-790e-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_UNACK")
+    @GET ("alarm/DEVICE/1810a5d0-790e-11ec-9a04-591db17ccd5b?&pageSize=30&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getPaperStreetContainersAlarm (@Header("X-Authorization") String token);
-
-    //STREET Paper Container ALARM
-    @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/1810a5d0-790e-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_ACK")
-    Call<JsonObject> getPaperStreetContainersAlarm2 (@Header("X-Authorization") String token);
 
     //STREET Organic Container
     @Headers({"Accept: application/json"})
@@ -73,13 +64,8 @@ public interface ThingsboardService {
 
     //STREET Organic Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_UNACK")
+    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?&pageSize=30&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getOrganicStreetContainersAlarm (@Header("X-Authorization") String token);
-
-    //STREET Organic Container ALARM
-    @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/3c23e860-7891-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_ACK")
-    Call<JsonObject> getOrganicStreetContainersAlarm2 (@Header("X-Authorization") String token);
 
     //STREET Glass Container
     @Headers({"Accept: application/json"})
@@ -88,13 +74,8 @@ public interface ThingsboardService {
 
     //STREET Glass Container ALARM
     @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/ddca70e0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_UNACK")
+    @GET ("alarm/DEVICE/ddca70e0-7971-11ec-9a04-591db17ccd5b?&pageSize=30&page=0&sortProperty=createdTime&sortOrder=DESC")
     Call<JsonObject> getGlassStreetContainersAlarm (@Header("X-Authorization") String token);
-
-    //STREET Glass Container ALARM
-    @Headers({"Accept: application/json"})
-    @GET ("alarm/DEVICE/ddca70e0-7971-11ec-9a04-591db17ccd5b?pageSize=10&page=0&sortProperty=createdTime&sortOrder=DESC&status=ACTIVE_ACK")
-    Call<JsonObject> getGlassStreetContainersAlarm2 (@Header("X-Authorization") String token);
 
     //ACKNOWLEDGE THE ALARM
     @Headers({"Accept: application/json", "Content-Type: application/json"})
@@ -105,4 +86,9 @@ public interface ThingsboardService {
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST ("alarm/{alarmId}/clear")
     Call<Void> sendClearAlarm (@Header("X-Authorization") String token, @Path ("alarmId") String alarmId);
+
+    //DELETE THE ALARM
+    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    @DELETE("alarm/{alarmId}")
+    Call<Void> sendDeleteAlarm (@Header("X-Authorization") String token, @Path ("alarmId") String alarmId);
 }

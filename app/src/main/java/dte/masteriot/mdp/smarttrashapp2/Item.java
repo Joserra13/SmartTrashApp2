@@ -5,13 +5,11 @@ import com.google.android.gms.maps.model.LatLng;
 public class Item {
     private final String myDisplayText;
     private final LatLng myLocation;
-    private final String mydate;
 
 
-    Item(String display_text, LatLng location, String date) {
+    Item(String display_text, LatLng location) {
         myDisplayText = display_text;
         myLocation = location;
-        mydate = date;
     }
 
     String getDisplayText() {
@@ -21,7 +19,5 @@ public class Item {
     LatLng getLocation() {
         return myLocation;
     }
-
-    String getDate(){return mydate;}
 
 }
