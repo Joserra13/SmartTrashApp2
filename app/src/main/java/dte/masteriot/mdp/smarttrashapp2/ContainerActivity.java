@@ -80,17 +80,6 @@ public class ContainerActivity extends AppCompatActivity {
         x_Axis.setText(String.valueOf(xAxis));
         y_Axis.setText(String.valueOf(yAxis));
         z_Axis.setText(String.valueOf(zAxis));
-
-        if((xAxis < 1 && xAxis > -1) && (zAxis < 1 && zAxis > -1)){
-            //Vertical
-            orientation.setText("Vertical");
-        }else if((yAxis < 1 && yAxis > -1) && (zAxis < 1 && zAxis > -1)){
-            //Hacia un lado
-            orientation.setText("Sideways");
-        }else if((yAxis < 1 && yAxis > -1) && (xAxis < 1 && xAxis > -1)){
-            //Hacia alante o hacia atrás
-            orientation.setText("Forwards/Backwards");
-        }
     }
 
     private void getStreetContainersData(int choice) {
