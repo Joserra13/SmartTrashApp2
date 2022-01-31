@@ -54,8 +54,6 @@ public class ContainerActivity extends AppCompatActivity {
         y_Axis = findViewById(R.id.textView17);
         z_Axis = findViewById(R.id.textView19);
 
-        orientation = findViewById(R.id.textView21);
-
         containerName.setText(name);
 
         //Plastic
